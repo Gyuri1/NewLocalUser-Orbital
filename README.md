@@ -17,6 +17,17 @@ Please review these links:
   Based on these links You can create your own Webex Bot and Secure Webex Bot Account. 
 
   ![webex bot](webex.png)
+  
+  Please check the Webex Teams Room ID where you would like to send the alerts, like this way:
+ 
+ ![webexroom](webexroom.png)
+ 
+
+  After uploading the workflow, please review the databse where workflow will store the machine and user info:
+ 
+ ![db](db.png)
+ 
+
 
 Please create or review a Generic Schedule like this as a trigger:
 
