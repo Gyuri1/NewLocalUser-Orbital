@@ -9,4 +9,4 @@ This workflow requires the Orbital_Credentials and Webex Teams Bot credentials.
 Please verify these settings prior to execution.
 
 
-Please create a Generic Schedule like this:
+Please create a Generic Schedule like this as a trigger:
