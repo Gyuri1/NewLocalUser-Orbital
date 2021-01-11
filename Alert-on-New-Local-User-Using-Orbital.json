@@ -1,0 +1,631 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01LGYS82N67E479humLKfK4JWcOXH73EfYq",
+    "name": "Alert-on-New-Local-User-Using-Orbital",
+    "title": "Alert-on-New-Local-User-Using-Orbital",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "orbital-response",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01LGYS82BIG605WUDoWjLh8Gzxq5mNCTeYu",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Workflow Description:\nWhen triggered, this workflow will review machines and local users in Orbital and send a Webex Alert on new user. \n\nWorkflow Requirements:\nThis workflow requires the Orbital_Credentials and Webex Teams Bot credentials. \nPlease verify these settings prior to execution.",
+      "display_name": "Alert-on-New-Local-User-Using-Orbital",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eqi",
+                "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                "right_operand": "Orbital_For_Access_Token"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01LHVZT5PYQDL7D8KOZKezbM35AKvXiURC3",
+        "name": "Webex Teams - Post Message to Room",
+        "title": "Webex Teams - Post Message to Room",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Webex Teams - Post Message to Room",
+          "input": {
+            "variable_workflow_01FGYY44G3MZ55amJu9YqgUeKS8GT49bZx3": "$global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx.global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx$",
+            "variable_workflow_01FGYY44G3TK951Crpnd8g2izonyM4bFtpW": "$global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in.global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in$",
+            "variable_workflow_01FGYY44G3UPV3heGGc3vXCV47YL5WoI2X6": "New User Test Completed.",
+            "variable_workflow_01FGYZ9BV4QTP19CuMwcW8QywvCP9ymx2BZ": "New User Test Started."
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01J41W2HVTI6N5gJbAf2ZbHFZWMP8eX0hQS",
+            "target_type": "web-service.endpoint"
+          },
+          "workflow_id": "definition_workflow_01FGYY44YU521254ygN3Le0In0kEHpiPNpf"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LGYSCV28UHK20rxRqfiMp32gDqYJmuDFC",
+        "name": "Generate Orbital access token",
+        "title": "Generate Orbital access token",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Generate Orbital access token",
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "use_workflow_target_group": true
+          },
+          "workflow_id": "definition_workflow_01779LB6MV0P02kvka9TGV5cEam84NrCTy4"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LGYSEELNZUS4Ng3ulopJsU9v4D1dBJIJE",
+        "name": "Orbital - Query Endpoint",
+        "title": "Orbital - Query Endpoint",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Orbital - Query Endpoint",
+          "input": {
+            "variable_workflow_01F4YGKGSPQ4R0cp29F0OqpDcXkjpph7LCH": "",
+            "variable_workflow_01F4YGKGSPVOT0mTZ6DAQYFbZROdb9xnhdU": "$activity.definition_activity_01LGYSCV28UHK20rxRqfiMp32gDqYJmuDFC.output.variable_workflow_01BNOOXA3G6MV1PGAvsfZOKDdMYcE6XS726$",
+            "variable_workflow_01F4YGKGSPWTB4YpUnQ0yxhqhW0mK5GRc8M": "",
+            "variable_workflow_01F4YGKGSPZ6U1aJjRQVdPZLfGTDaKUp6aj": "",
+            "variable_workflow_01F4YGKGSQ0CV4Aoqb5dI0cE4BnX2d363Q6": "",
+            "variable_workflow_01F4YGKGSQ1G12UKXH09WJ1SniEvSl5Mvix": "",
+            "variable_workflow_01F5OLF57L9ZO3EqIUyCbALqlT8zl1g2Ewx": true,
+            "variable_workflow_01F5OPGZKY45B6qt4GZaTWFCQgeubkvxetW": "user_accounts",
+            "variable_workflow_01F5OQ33Z1FYY6EU9WApPObYDLrXazVhrX6": 10,
+            "variable_workflow_01F6IF7XUFHTJ0i4lVYydOegI8GDVl3NRHR": 10,
+            "variable_workflow_01F6IYTZNLX4G5pSwr6DIkCQrikF0bhHcja": "",
+            "variable_workflow_01FBQGUI51HH37Ch8QLjCXWxN0bdvHzSslk": "User_account Orbital Process - initiated by $workflow.definition_workflow_01LGYS82N67E479humLKfK4JWcOXH73EfYq.output.started_by$",
+            "variable_workflow_01FBQI0TJBF4W0M6dwprkXxHOP5B9wPzCT8": true
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
+                    "operator": "eqi",
+                    "right_operand": "Orbital_Target"
+                  }
+                ]
+              }
+            }
+          },
+          "workflow_id": "definition_workflow_01F4YGKHBBM2L2SwIZBJ2sKamNjm3QtxeAQ"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LGYSHKDZ07J1dIq5X4LprkLokL5lq0Rmw",
+        "name": "Set Variables",
+        "title": "Save output into a variable",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Save output into a variable",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01LGYS82N67E479humLKfK4JWcOXH73EfYq.local.variable_workflow_01LGYS82BIG605WUDoWjLh8Gzxq5mNCTeYu$",
+              "variable_value_new": "$activity.definition_activity_01LGYSEELNZUS4Ng3ulopJsU9v4D1dBJIJE.output.variable_workflow_01F4YGKGSPY0H5OSKV2ZRiPyAFZ7x1joTkK$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LH5VHRRXTB06XS2hDOaDFLcFREYAiw5nk",
+        "name": "Execute Python Script",
+        "title": "Parse Orbital response",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Parse Orbital response",
+          "script": "import sys,json\nrawList = json.loads(sys.argv[1])\noutList = []\ncolumns= [\"uid\",\"gid\",\"username\",\"description\", \"directory\",\"shell\",\"uuid\",\"type\" ]\ndatalen=len(columns)\nfor item in rawList:\n  nodeid =item['node']\n  hostname = item[\"hostinfo\"][\"hostname\"]\n  users=item['osQueryResult'][0]['values']\n  # search for local users\n  for i in range(len(users)):\n  \tif i%datalen==0: \n  \t  if users[i+7] == \"local\":\n  \t    outList.append({ \"hostname\":hostname,\"nodeid\":nodeid, \"username\":users[i+2],\"uid\": users[i]})\noutJson = json.dumps(outList)\n",
+          "script_arguments": [
+            "$activity.definition_activity_01LGYSEELNZUS4Ng3ulopJsU9v4D1dBJIJE.output.variable_workflow_01F4YGKGSPY0H5OSKV2ZRiPyAFZ7x1joTkK$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "outJson",
+              "script_query_name": "outJson",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LGYU9E1Q1213QVLk2FJGlAzsDcAo41J9h",
+        "name": "Read Table from JSON",
+        "title": "Read Table from JSON",
+        "type": "corejava.read_table_from_json",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Read Table from JSON",
+          "input_json": "$activity.definition_activity_01LH5VHRRXTB06XS2hDOaDFLcFREYAiw5nk.output.script_queries.outJson$",
+          "jsonpath_query": "$",
+          "persist_output": true,
+          "populate_columns": false,
+          "skip_execution": false,
+          "table_columns": [
+            {
+              "column_name": "hostname",
+              "column_type": "string"
+            },
+            {
+              "column_name": "nodeid",
+              "column_type": "string"
+            },
+            {
+              "column_name": "username",
+              "column_type": "string"
+            },
+            {
+              "column_name": "uid",
+              "column_type": "string"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp",
+        "name": "For Each",
+        "title": "For Each",
+        "type": "logic.for_each",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "For Each",
+          "skip_execution": false,
+          "source_array": "$activity.definition_activity_01LGYU9E1Q1213QVLk2FJGlAzsDcAo41J9h.output.read_table_from_json$"
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01LH8F4QSKLFU57mKnxSb0xWgDtxiQ8IzCg",
+            "name": "Select from Table",
+            "title": "Select from Table",
+            "type": "core.selectfromtable",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": true,
+              "display_name": "Select from Table",
+              "input_table": "$global.variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki.global.variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki$",
+              "number_of_rows": {
+                "all_rows": true,
+                "at_most": false
+              },
+              "persist_output": false,
+              "skip_execution": false,
+              "sorting": {
+                "no_sort": true,
+                "sort_by": false
+              },
+              "where_clause": "hostname =  '$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].hostname$'  AND                   username   =  '$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].username$'  AND                                            nodeid =     '$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].nodeid$'  AND                                           uid = '$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].uid$'"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01LGYSW5FNM7F7iFa1JdcgJeWKzRJ6QQpbX",
+            "name": "Condition Block",
+            "title": "Condition Block",
+            "type": "logic.if_else",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Condition Block",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "blocks": [
+              {
+                "unique_name": "definition_activity_01LGYSXA3LFUX0OfVfKltqMIF2LLGGG8c3f",
+                "name": "Condition Branch",
+                "title": "Condition Branch",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_01LH8F4QSKLFU57mKnxSb0xWgDtxiQ8IzCg.output.row_count$",
+                    "operator": "eq",
+                    "right_operand": 0
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Condition Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "actions": [
+                  {
+                    "unique_name": "definition_activity_01LGYSYG5UWK75hXpczh7gy26s69PLCtq7p",
+                    "name": "Add Row to Table",
+                    "title": "Add Row to Table",
+                    "type": "core.addrowtotable",
+                    "base_type": "activity",
+                    "properties": {
+                      "action_timeout": 180,
+                      "continue_on_failure": false,
+                      "display_name": "Add Row to Table",
+                      "input_table": "$global.variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki.global.variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki$",
+                      "row": [
+                        {
+                          "key": "hostname",
+                          "type": "string",
+                          "value": "$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].hostname$"
+                        },
+                        {
+                          "key": "nodeid",
+                          "type": "string",
+                          "value": "$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].nodeid$"
+                        },
+                        {
+                          "key": "username",
+                          "type": "string",
+                          "value": "$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].username$"
+                        },
+                        {
+                          "key": "uid",
+                          "type": "string",
+                          "value": "$activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].uid$"
+                        }
+                      ],
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity"
+                  },
+                  {
+                    "unique_name": "definition_activity_01LHUUYBGUP4Q5VEY85eRKCVbwb3cxEYI6q",
+                    "name": "Webex Teams - Post Message to Room",
+                    "title": "Webex Teams - Post Message to Room",
+                    "type": "workflow.atomic_workflow",
+                    "base_type": "subworkflow",
+                    "properties": {
+                      "continue_on_failure": false,
+                      "display_name": "Webex Teams - Post Message to Room",
+                      "input": {
+                        "variable_workflow_01FGYY44G3MZ55amJu9YqgUeKS8GT49bZx3": "$global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx.global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx$",
+                        "variable_workflow_01FGYY44G3TK951Crpnd8g2izonyM4bFtpW": "$global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in.global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in$",
+                        "variable_workflow_01FGYY44G3UPV3heGGc3vXCV47YL5WoI2X6": "Alert! New User : $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].username$ on this machine: $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].hostname$",
+                        "variable_workflow_01FGYZ9BV4QTP19CuMwcW8QywvCP9ymx2BZ": "Alert! New User :  $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].username$  on this machine: $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].hostname$; nodeid: $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].nodeid$;  uid: $activity.definition_activity_01LGYSQYOCFPC5FomyRwe0w8JxjMXFdxdfp.input.source_array[@].uid$"
+                      },
+                      "runtime_user": {
+                        "target_default": true
+                      },
+                      "skip_execution": false,
+                      "target": {
+                        "override_workflow_target": true,
+                        "target_id": "definition_target_01J41W2HVTI6N5gJbAf2ZbHFZWMP8eX0hQS",
+                        "target_type": "web-service.endpoint"
+                      },
+                      "workflow_id": "definition_workflow_01FGYY44YU521254ygN3Le0In0kEHpiPNpf"
+                    },
+                    "object_type": "definition_activity"
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_01LGYT0WW9GWS7QWHL6oMS1LawtTmtEgRXE",
+                "name": "Condition Branch",
+                "title": "Condition Branch",
+                "type": "logic.condition_block",
+                "base_type": "activity",
+                "properties": {
+                  "condition": {
+                    "left_operand": "$activity.definition_activity_01LH8F4QSKLFU57mKnxSb0xWgDtxiQ8IzCg.output.row_count$",
+                    "operator": "gt",
+                    "right_operand": 0
+                  },
+                  "continue_on_failure": false,
+                  "display_name": "Condition Branch",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01LHUXDCP0D5Z56X9883P11xru6RZGx3O51",
+        "name": "Webex Teams - Post Message to Room",
+        "title": "Webex Teams - Post Message to Room",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Webex Teams - Post Message to Room",
+          "input": {
+            "variable_workflow_01FGYY44G3MZ55amJu9YqgUeKS8GT49bZx3": "$global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx.global.variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx$",
+            "variable_workflow_01FGYY44G3TK951Crpnd8g2izonyM4bFtpW": "$global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in.global.variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in$",
+            "variable_workflow_01FGYY44G3UPV3heGGc3vXCV47YL5WoI2X6": "New User Test Completed.",
+            "variable_workflow_01FGYZ9BV4QTP19CuMwcW8QywvCP9ymx2BZ": "New User Test Completed."
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01J41W2HVTI6N5gJbAf2ZbHFZWMP8eX0hQS",
+            "target_type": "web-service.endpoint"
+          },
+          "workflow_id": "definition_workflow_01FGYY44YU521254ygN3Le0In0kEHpiPNpf"
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r"
+    ]
+  },
+  "categories": {
+    "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r": {
+      "unique_name": "category_01EI33LMFFL7N5eTQLsOOJIrxdlSOHb7r3r",
+      "name": "SecureX",
+      "title": "SecureX",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "triggers": {
+    "triggerschedule_01LHV53R8WSF03XMAE9SSUjXTzog9ClqgmR": {
+      "workflow_id": "definition_workflow_01LGYS82N67E479humLKfK4JWcOXH73EfYq",
+      "name": "New User Test",
+      "title": "",
+      "lowercase_name": "schedule.new_user_test",
+      "type": "schedule",
+      "base_type": "trigger",
+      "ref_id": "schedule_01LHV00A3F4ST7XC8XFM3ej2TIO7j3tGgCR",
+      "version": "1.0.0",
+      "disabled": false,
+      "unique_name": "triggerschedule_01LHV53R8WSF03XMAE9SSUjXTzog9ClqgmR",
+      "object_type": "triggerschedule"
+    }
+  },
+  "schedules": {
+    "schedule_01LHV00A3F4ST7XC8XFM3ej2TIO7j3tGgCR": {
+      "unique_name": "schedule_01LHV00A3F4ST7XC8XFM3ej2TIO7j3tGgCR",
+      "name": "New User Test",
+      "type": "basic.schedule",
+      "base_type": "schedule",
+      "properties": {
+        "calendar": "calendar_recurring_1BMfMWvgiDhSjBQ7hTSyvz3NyVZ",
+        "timezone": "Europe/Belgrade",
+        "starttime": "01:05",
+        "interval_hours": 0,
+        "interval_minutes": 0,
+        "number_of_times": 1,
+        "display_name": "New User Test",
+        "description": ""
+      },
+      "version": "1.0.0",
+      "object_type": "schedule"
+    }
+  },
+  "targets": {
+    "definition_target_01J41W2HVTI6N5gJbAf2ZbHFZWMP8eX0hQS": {
+      "unique_name": "definition_target_01J41W2HVTI6N5gJbAf2ZbHFZWMP8eX0hQS",
+      "name": "Webex Teams Target",
+      "title": "Webex Teams Target",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": true,
+        "display_name": "Webex Teams Target",
+        "host": "webexapis.com",
+        "ignore_proxy": true,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    }
+  },
+  "target_groups": {
+    "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH": {
+      "unique_name": "target_group_01EJ0TQWPQWBD0qiWqClJKj9FOzwiZRfOFH",
+      "name": "Default TargetGroup",
+      "title": "Default TargetGroup",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": true
+        },
+        {
+          "data_target_type": "email.smtp_endpoint",
+          "view_target_type": "email.smtp_endpoint",
+          "include_all_targets": true
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_01H63VNHT7A805h2AFTiWpY36glSSAhmRVO": {
+      "unique_name": "variable_01H63VNHT7A805h2AFTiWpY36glSSAhmRVO",
+      "schema_id": "tabletype_01H63BI685B7C4dI7kkYwdrLA3OLE8vHSC1",
+      "properties": {
+        "scope": "global",
+        "name": "UserList_database",
+        "type": "datatype.table",
+        "is_required": false,
+        "is_invisible": false
+      },
+      "object_type": "variable"
+    },
+    "variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx": {
+      "unique_name": "variable_01J3Z3BMDL0KS3TWUEiO4ZN6fE3VjDifKsx",
+      "properties": {
+        "value": "*****",
+        "scope": "global",
+        "name": "Webex-secure-token-bot",
+        "type": "datatype.secure_string",
+        "is_required": false,
+        "is_invisible": false
+      },
+      "object_type": "variable"
+    },
+    "variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in": {
+      "unique_name": "variable_01J42D66BAFE425Y4LCaygldf8YO0v5Z9in",
+      "properties": {
+        "value": "Y2lzY29zcGFyazovL3VzL1JPT00vM2Q0YzVmZTAtOTZmOS0xMWVhLWEyZGUtYjdlMjZhNTIzYWJl",
+        "scope": "global",
+        "name": "Webex-room-SWC",
+        "type": "datatype.string",
+        "is_required": false,
+        "is_invisible": false
+      },
+      "object_type": "variable"
+    },
+    "variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki": {
+      "unique_name": "variable_01LJK1QMIU9N43hsYhmNU802nraBRjX6Lki",
+      "schema_id": "tabletype_01LHX7ZLCVWZQ6GjNwk4LMVCf8Lr2bLcUL6",
+      "properties": {
+        "value": [
+          {
+            "column_data": {
+              "hostname": "123",
+              "nodeid": "123",
+              "uid": "123",
+              "username": "123"
+            }
+          }
+        ],
+        "scope": "global",
+        "name": "Machine_User_DB",
+        "type": "datatype.table",
+        "is_required": false,
+        "is_invisible": false
+      },
+      "object_type": "variable"
+    }
+  },
+  "table_types": {
+    "tabletype_01H63BI685B7C4dI7kkYwdrLA3OLE8vHSC1": {
+      "unique_name": "tabletype_01H63BI685B7C4dI7kkYwdrLA3OLE8vHSC1",
+      "data_type": "datatype.tabletype",
+      "display_name": "UserList",
+      "description": "List of the found users",
+      "columns": [
+        {
+          "is_required": true,
+          "name": "hostname",
+          "title": "hostname",
+          "type": "string"
+        },
+        {
+          "is_required": true,
+          "name": "username",
+          "title": "username",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    },
+    "tabletype_01LHX7ZLCVWZQ6GjNwk4LMVCf8Lr2bLcUL6": {
+      "unique_name": "tabletype_01LHX7ZLCVWZQ6GjNwk4LMVCf8Lr2bLcUL6",
+      "data_type": "datatype.tabletype",
+      "display_name": "Hostname_User_Type",
+      "columns": [
+        {
+          "name": "username",
+          "title": "username",
+          "type": "string"
+        },
+        {
+          "name": "hostname",
+          "title": "hostname",
+          "type": "string"
+        },
+        {
+          "name": "nodeid",
+          "title": "nodeid",
+          "type": "string"
+        },
+        {
+          "name": "uid",
+          "title": "uid",
+          "type": "string"
+        }
+      ],
+      "base_type": "datatype",
+      "object_type": "tabletype"
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_01779LB6MV0P02kvka9TGV5cEam84NrCTy4",
+    "definition_workflow_01FGYY44YU521254ygN3Le0In0kEHpiPNpf",
+    "definition_workflow_01F4YGKHBBM2L2SwIZBJ2sKamNjm3QtxeAQ"
+  ]
+}
