@@ -1,7 +1,7 @@
 # NewLocalUser-Orbital
 
 # Workflow Description: 
-When triggered, this workflow will review machines and local users in Orbital and send a Webex Alert on new user.
+When triggered, this workflow will review machines and local users in Orbital and send a Webex alert on new user(s).
 
 
 # Workflow Requirements: 
