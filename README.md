@@ -16,6 +16,9 @@ Please review these links:
   
   Based on these links You can create your own Webex Bot and Secure Webex Bot Account. 
 
+  ![webex bot](webex.png)
 
+Please create or review a Generic Schedule like this as a trigger:
 
-Please create a Generic Schedule like this as a trigger:
+![Schedule](sch.png)
+
