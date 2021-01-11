@@ -22,3 +22,6 @@ Please create or review a Generic Schedule like this as a trigger:
 
 ![Schedule](sch.png)
 
+After a successful run, you will see the new user reported by the workflow:
+
+![Output](Webex_output.png)
