@@ -23,7 +23,7 @@ Please review these links:
  ![webexroom](webexroom.png)
  
 
-  After uploading the workflow, please review the databse where workflow will store the machine and user info:
+  After uploading the workflow, please review the database where workflow will store the machine and user info:
  
  ![db](db.png)
  
