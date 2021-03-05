@@ -1,0 +1,87 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01LOSXESBF0HB2QUFHHlOabnzJ0G5Bo5Zbq",
+    "name": "Current-Time",
+    "title": "Current-Time",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "timestamp",
+          "type": "datatype.string",
+          "is_required": false,
+          "is_invisible": false
+        },
+        "unique_name": "variable_workflow_01LOT5GYRX4HD0vvRzEpL1tq1lSFSngnNMT",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Cisco Orbital",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "Current-Time",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01LOSXMFG7GHK4sfUzJVnbMXcDahMvPjXCQ",
+        "name": "Execute Python Script",
+        "title": "Calculate current  time",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Calculate current  time",
+          "script": "import time\nimport sys\nfrom datetime import datetime\ndateTimeObj = datetime.now()\ntimestamp = dateTimeObj.strftime(\"%d-%b-%Y (%H:%M:%S.%f)\")",
+          "script_queries": [
+            {
+              "script_query": "timestamp",
+              "script_query_name": "timestamp",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_01LOT98URECD25Ns98CYSLBFL8lm4ONAHii",
+        "name": "Set Variables",
+        "title": "Set Variables",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Variables",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_01LOSXESBF0HB2QUFHHlOabnzJ0G5Bo5Zbq.output.variable_workflow_01LOT5GYRX4HD0vvRzEpL1tq1lSFSngnNMT$",
+              "variable_value_new": "$activity.definition_activity_01LOSXMFG7GHK4sfUzJVnbMXcDahMvPjXCQ.output.script_queries.timestamp$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  }
+}
